@@ -35,7 +35,7 @@ const SingleArticleCard = ({index, item}) => {
           </CardContent>
           <CardActions className={`${S.buttonDiv} ${isXsDown && S.mobileButtonDiv}`}>
             <Button
-              className={isXsDown && S.button}
+              className={isXsDown ? S.button : null}
               size={isXsDown ? 'medium' : 'small'}
               color='primary'
               onClick={() => window.open(item.url, '_blank')}>
