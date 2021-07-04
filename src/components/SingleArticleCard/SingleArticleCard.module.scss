@@ -1,0 +1,25 @@
+.media {
+  height: 220px;
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.cardContent {
+  min-height: 290px;
+}
+
+.buttonDiv {
+  display: flex;
+  justify-content: flex-end;
+}
+.mobileButtonDiv {
+  justify-content: center;
+}
+
+.button {
+  width: 80%;
+}
