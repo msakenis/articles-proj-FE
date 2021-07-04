@@ -11,11 +11,14 @@ const reducer = (state, action) => {
       };
 
     case actions.LIST_SUCCESS:
-      return {
+      const updatedState = {
         ...state,
         isLoading: false,
-        articlesList: [...action.payload],
       };
+      if (action.payload) {
+        updatedState.articlesList = [...action.payload];
+      }
+      return updatedState;
     case actions.LIST_ERROR:
       return {
         ...state,

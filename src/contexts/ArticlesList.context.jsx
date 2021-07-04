@@ -12,11 +12,12 @@ export const ArticlesListProvider = ({children}) => {
   const [totalArticles, setTotalArticles] = useState(null);
 
   const {search} = useLocation();
-  const page = new URLSearchParams(search).get('page') || 1;
+  const page = +new URLSearchParams(search).get('page') || 1;
   const query = new URLSearchParams(search).get('query');
   const history = useHistory();
 
   useEffect(() => {
+    // if no query return url for trending/top articles, if query than search url returned
     const getFetchUrl = () => {
       if (query) {
         return `${process.env.REACT_APP_SEARCH_API_URL}?token=${process.env.REACT_APP_API_TOKEN}&max=9&lang=en&page=${page}&q=${query}`;
@@ -30,10 +31,17 @@ export const ArticlesListProvider = ({children}) => {
       try {
         const response = await fetch(getFetchUrl());
         const result = await response.json();
-        if (result) {
-          setTotalArticles(result.totalArticles || 0);
+        console.log({result});
+        if (result && !result.errors) {
+          setTotalArticles(result.totalArticles || 1);
+          dispatch({type: actions.LIST_SUCCESS, payload: result.articles});
         }
-        dispatch({type: actions.LIST_SUCCESS, payload: result.articles});
+        if (result && result.errors) {
+          dispatch({
+            type: actions.LIST_ERROR,
+            payload: {message: result.errors[0]},
+          });
+        }
       } catch (error) {
         dispatch({
           type: actions.LIST_ERROR,
@@ -48,7 +56,9 @@ export const ArticlesListProvider = ({children}) => {
     dispatch({type: actions.CLOSE_ERROR});
   };
 
+  // sets variables as page and query to url
   const setUrl = ({query, page}) => {
+    //validate search query. return {error:true, message: '..'} if wrong
     const validated = validateInputValue({value: query});
 
     if (validated.error === false) {
