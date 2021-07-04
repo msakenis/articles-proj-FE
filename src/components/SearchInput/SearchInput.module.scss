@@ -1,0 +1,41 @@
+.root {
+  height: 48px;
+  display: flex;
+  justify-content: space-between;
+  width: 50%;
+  margin-top: 24px;
+}
+
+.mobileRoot {
+  width: 100%;
+}
+
+.iconButton {
+  color: rgba(0, 0, 0, 0.54);
+  transform: scale(1, 1);
+  transition: all 250ms ease-in-out !important;
+}
+
+.iconButtonHidden {
+  transform: scale(0, 0);
+  & > icon {
+    opacity: 0;
+  }
+}
+
+.searchIconButton {
+  margin-right: -48px !important;
+}
+
+.icon {
+  transition: opacity 250ms ease-in-out !important;
+}
+
+.input {
+  width: 100%;
+}
+
+.searchContainer {
+  margin: auto 16px;
+  width: calc(100% - 80px);
+}
