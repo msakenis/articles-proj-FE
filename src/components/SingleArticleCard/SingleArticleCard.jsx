@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import PropTypes from 'prop-types';
 import Card from '@material-ui/core/Card';
 import CardMedia from '@material-ui/core/CardMedia';
@@ -12,11 +12,15 @@ import * as S from './SingleArticleCard.module.scss';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 import useTheme from '@material-ui/core/styles/useTheme';
 import {SourceBox} from '../';
+import {ArticlesListContext} from '../../contexts/ArticlesList.context';
+import {logUserActionTypes} from '../../utils/actions';
 
 const SingleArticleCard = ({index, item}) => {
   const truncate = ({str, n}) => (str.length > n ? str.substr(0, n - 1) + '...' : str);
   const theme = useTheme();
   const isXsDown = useMediaQuery(theme.breakpoints.down('xs'));
+
+  const {logUserActions} = useContext(ArticlesListContext);
   return (
     <Fade in timeout={Math.min((index + 1) * 200, 2000)} key={index}>
       <Grid item xs={12} sm={6} md={4} lg={4}>
@@ -38,7 +42,10 @@ const SingleArticleCard = ({index, item}) => {
               className={isXsDown ? S.button : null}
               size={isXsDown ? 'medium' : 'small'}
               color='primary'
-              onClick={() => window.open(item.url, '_blank')}>
+              onClick={() => {
+                window.open(item.url, '_blank');
+                logUserActions({payload: {article: item, action: logUserActionTypes.ARTICLE_CLICK}});
+              }}>
               Read More
             </Button>
           </CardActions>

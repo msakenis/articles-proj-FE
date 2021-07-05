@@ -52,6 +52,31 @@ export const ArticlesListProvider = ({children}) => {
     fetchData();
   }, [query, page]);
 
+  const logUserActions = async ({payload}) => {
+    if (payload && payload.action) {
+      try {
+        const options = {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(payload),
+        };
+
+        const res = await fetch(`${process.env.REACT_APP_LOG_USER_ACTIONS_API_URL}/create`, options);
+
+        if (res.ok) {
+          console.log({msg: res.ok});
+        }
+        if (!res.ok) {
+          console.log({res});
+        }
+      } catch (err) {
+        console.log({err});
+      }
+    }
+  };
+
   const closeError = () => {
     dispatch({type: actions.CLOSE_ERROR});
   };
@@ -91,6 +116,7 @@ export const ArticlesListProvider = ({children}) => {
     query,
     setUrl,
     totalArticles,
+    logUserActions,
     ...state,
   };
 
