@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 import IconButton from '@material-ui/core/IconButton';
 import Input from '@material-ui/core/Input';
 import Paper from '@material-ui/core/Paper';
+import Button from '@material-ui/core/Button';
+import Divider from '@material-ui/core/Divider';
 import ClearIcon from '@material-ui/icons/Clear';
 import SearchIcon from '@material-ui/icons/Search';
 import {ArticlesListContext} from '../../contexts/ArticlesList.context';
@@ -98,6 +100,15 @@ const SearchInput = forwardRef(
           disabled={disabled}>
           <ClearIcon className={S.icon} />
         </IconButton>
+        <Divider orientation='vertical' />
+        <Button
+          color={'primary'}
+          variant={'text'}
+          className={S.searchButton}
+          size={'small'}
+          onClick={handleRequestSearch}>
+          Search
+        </Button>
       </Paper>
     );
   },
