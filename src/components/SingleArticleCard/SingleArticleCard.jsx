@@ -6,6 +6,7 @@ import Typography from '@material-ui/core/Typography';
 import CardContent from '@material-ui/core/CardContent';
 import CardActions from '@material-ui/core/CardActions';
 import Button from '@material-ui/core/Button';
+import Divider from '@material-ui/core/Divider';
 import Grid from '@material-ui/core/Grid';
 import Fade from '@material-ui/core/Fade';
 import * as S from './SingleArticleCard.module.scss';
@@ -37,6 +38,7 @@ const SingleArticleCard = ({index, item}) => {
               {truncate({str: item.description, n: 210})}
             </Typography>
           </CardContent>
+          {isXsDown && <Divider className={S.divider} />}
           <CardActions className={`${S.buttonDiv} ${isXsDown && S.mobileButtonDiv}`}>
             <Button
               className={isXsDown ? S.button : null}

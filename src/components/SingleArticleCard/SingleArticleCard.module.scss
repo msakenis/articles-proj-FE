@@ -18,8 +18,15 @@
 }
 .mobileButtonDiv {
   justify-content: center;
+  padding: 0 !important;
 }
 
 .button {
-  width: 80%;
+  width: 100%;
+  margin: 0 !important;
+  padding: 8px !important;
+}
+
+.divider {
+  margin: 0 16px;
 }

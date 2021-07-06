@@ -29,7 +29,7 @@ const SourceBox = ({item}) => {
         <ListItemIcon className={S.iconWrapper}>
           <GetAppIcon className={`${S.icon} ${isXsDown && S.mobileIcon}`} />
         </ListItemIcon>
-        <Typography variant={isXsDown ? 'body1' : 'caption'} color={'textSecondary'}>
+        <Typography variant={isXsDown ? 'body2' : 'caption'} color={'textSecondary'}>
           {item.source.name}
         </Typography>
       </Link>
@@ -40,7 +40,7 @@ const SourceBox = ({item}) => {
             <AccessTimeIcon className={`${S.icon} ${isXsDown && S.mobileIcon}`} />
           </ListItemIcon>
 
-          <Typography variant={isXsDown ? 'body1' : 'caption'} color={'textSecondary'}>
+          <Typography variant={isXsDown ? 'body2' : 'caption'} color={'textSecondary'}>
             {convertTimeToHumanReadable({isoString: item.publishedAt}).relativePublishedAt}
           </Typography>
         </div>
