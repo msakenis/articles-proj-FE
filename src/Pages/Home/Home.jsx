@@ -4,20 +4,17 @@ import Container from '@material-ui/core/Container';
 
 import {ArticlesListContext} from '../../contexts/ArticlesList.context';
 import {SearchInput, Notification, ArticlesList, Loading, Pagination} from '../../components';
-import {logUserActionTypes} from '../../utils/actions';
+
 import * as S from './Home.module.scss';
 
 const Home = () => {
-  const {isLoading, articlesList, setUrl, page, totalArticles, query, logUserActions} = useContext(ArticlesListContext);
+  const {isLoading, articlesList, setUrl, page, totalArticles, query} = useContext(ArticlesListContext);
 
   return (
     <Container>
       <Notification />
       <SearchInput
-        onRequestSearch={(value) => {
-          setUrl({query: value, page: 1});
-          logUserActions({payload: {searchKeyword: value, action: logUserActionTypes.SEARCH_SUBMIT}});
-        }}
+        onRequestSearch={(value) => setUrl({query: value, page: 1})}
         onCancelSearch={() => setUrl({page: 1})}
       />
       <Typography variant={'h4'} component={'h1'} color={'textSecondary'} className={S.title}>

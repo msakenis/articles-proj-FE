@@ -1,5 +1,5 @@
 import React, {createContext, useState, useEffect, useReducer} from 'react';
-import actions from '../utils/actions';
+import actions, {logUserActionTypes} from '../utils/actions';
 import qs from 'query-string';
 import {useLocation, useHistory} from 'react-router-dom';
 import reducer from '../utils/ArticlesList.reducer';
@@ -17,6 +17,9 @@ export const ArticlesListProvider = ({children}) => {
   const history = useHistory();
 
   useEffect(() => {
+    //validate search query. return {error:true, message: '..'} if wrong
+    const validated = validateInputValue({value: query});
+
     // if no query return url for trending/top articles, if query than search url returned
     const getFetchUrl = () => {
       if (query) {
@@ -31,7 +34,7 @@ export const ArticlesListProvider = ({children}) => {
       try {
         const response = await fetch(getFetchUrl());
         const result = await response.json();
-        console.log({result});
+
         if (result && !result.errors) {
           setTotalArticles(result.totalArticles || 1);
           dispatch({type: actions.LIST_SUCCESS, payload: result.articles});
@@ -49,7 +52,19 @@ export const ArticlesListProvider = ({children}) => {
         });
       }
     };
-    fetchData();
+
+    if (validated.error === false) {
+      fetchData();
+      if (query && query !== '') {
+        logUserActions({payload: {searchKeyword: query, action: logUserActionTypes.SEARCH_SUBMIT}});
+      }
+    }
+    if (validated.error === true) {
+      dispatch({
+        type: actions.LIST_ERROR,
+        payload: {message: validated.message},
+      });
+    }
   }, [query, page]);
 
   //sends user actions to BE
@@ -66,9 +81,6 @@ export const ArticlesListProvider = ({children}) => {
 
         const res = await fetch(`${process.env.REACT_APP_LOG_USER_ACTIONS_API_URL}/create`, options);
 
-        if (res.ok) {
-          console.log({msg: res.ok});
-        }
         if (!res.ok) {
           console.log({res});
         }
@@ -85,29 +97,18 @@ export const ArticlesListProvider = ({children}) => {
 
   // sets variables as page and query to url
   const setUrl = ({query, page}) => {
-    //validate search query. return {error:true, message: '..'} if wrong
-    const validated = validateInputValue({value: query});
-
-    if (validated.error === false) {
-      const urlPath = {};
-      if (query) {
-        urlPath.query = query;
-      }
-      if (page) {
-        urlPath.page = page;
-      }
-      const searchString = qs.stringify(urlPath);
-
-      history.push({
-        search: searchString,
-      });
+    const urlPath = {};
+    if (query) {
+      urlPath.query = query;
     }
-    if (validated.error === true) {
-      dispatch({
-        type: actions.LIST_ERROR,
-        payload: {message: validated.message},
-      });
+    if (page) {
+      urlPath.page = page;
     }
+    const searchString = qs.stringify(urlPath);
+
+    history.push({
+      search: searchString,
+    });
   };
 
   const contextValues = {
