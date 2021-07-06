@@ -3,14 +3,16 @@ import PropTypes from 'prop-types';
 import moment from 'moment';
 
 import Typography from '@material-ui/core/Typography';
-
-import ListItemIcon from '@material-ui/core/ListItemIcon';
 import Tooltip from '@material-ui/core/Tooltip';
 import Link from '@material-ui/core/Link';
+
+import ListItemIcon from '@material-ui/core/ListItemIcon';
 import AccessTimeIcon from '@material-ui/icons/AccessTime';
 import GetAppIcon from '@material-ui/icons/GetApp';
+
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 import useTheme from '@material-ui/core/styles/useTheme';
+
 import * as S from './SourceBox.module.scss';
 
 const SourceBox = ({item}) => {

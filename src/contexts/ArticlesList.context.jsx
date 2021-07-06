@@ -52,6 +52,7 @@ export const ArticlesListProvider = ({children}) => {
     fetchData();
   }, [query, page]);
 
+  //sends user actions to BE
   const logUserActions = async ({payload}) => {
     if (payload && payload.action) {
       try {
@@ -77,6 +78,7 @@ export const ArticlesListProvider = ({children}) => {
     }
   };
 
+  // resets error
   const closeError = () => {
     dispatch({type: actions.CLOSE_ERROR});
   };

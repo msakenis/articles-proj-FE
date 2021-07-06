@@ -1,7 +1,9 @@
 import React, {useContext} from 'react';
-import {ArticlesListContext} from '../../contexts/ArticlesList.context';
+
 import Alert from '@material-ui/lab/Alert';
 import Collapse from '@material-ui/core/Collapse';
+
+import {ArticlesListContext} from '../../contexts/ArticlesList.context';
 import * as S from './Notification.module.scss';
 
 const Notification = () => {

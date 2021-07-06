@@ -1,8 +1,11 @@
 import React, {useEffect, useState} from 'react';
 import PropTypes from 'prop-types';
+
 import IconButton from '@material-ui/core/IconButton';
+
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
+
 import * as S from './Pagination.module.scss';
 
 const Pagination = ({currentPage, isLastPage, onChange, isLoading}) => {

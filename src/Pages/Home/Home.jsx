@@ -1,10 +1,11 @@
 import React, {useContext} from 'react';
 import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
-import * as S from './Home.module.scss';
+
 import {ArticlesListContext} from '../../contexts/ArticlesList.context';
 import {SearchInput, Notification, ArticlesList, Loading, Pagination} from '../../components';
 import {logUserActionTypes} from '../../utils/actions';
+import * as S from './Home.module.scss';
 
 const Home = () => {
   const {isLoading, articlesList, setUrl, page, totalArticles, query, logUserActions} = useContext(ArticlesListContext);
