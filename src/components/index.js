@@ -5,3 +5,4 @@ export {default as ArticlesList} from './ArticlesList/ArticlesList';
 export {default as SingleArticleCard} from './SingleArticleCard/SingleArticleCard';
 export {default as SourceBox} from './SourceBox/SourceBox';
 export {default as Pagination} from './Pagination/Pagination';
+export {default as LazyLoadCardMedia} from './LazyLoadCardMedia/LazyLoadCardMedia';
